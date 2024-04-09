@@ -4,7 +4,7 @@
   "git.autofetch": true,
   "eslintIntegration": true,
   "printWidth": 120,
-  "importOrder": ["^[_]", "^assets/(.*)$", "^[./]"],
+  "importOrder": ["^[_]", "^assets/(.*)$", "^styles/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
