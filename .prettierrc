@@ -3,8 +3,5 @@
   "editor.tabSize": 2,
   "git.autofetch": true,
   "eslintIntegration": true,
-  "printWidth": 120,
-  "importOrder": ["^[_]", "^assets/(.*)$", "^styles/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "printWidth": 120
 }
