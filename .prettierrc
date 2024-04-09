@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "git.autofetch": true,
+  "eslintIntegration": true,
+  "printWidth": 120,
+  "importOrder": ["^[_]", "^assets/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
