@@ -164,7 +164,7 @@ export function renderModal() {
 
       const listItem = document.createElement("li");
       listItem.style.cursor = "pointer";
-      listItem.textContent = element.text;
+      listItem.innerHTML = element.text;
       listItem.classList.add(element.class);
 
       function addColor(e) {
