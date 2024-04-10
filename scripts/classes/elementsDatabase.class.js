@@ -1,4 +1,4 @@
-import { isArraysEqual } from "/scripts/helpers/arrays.js";
+import { isArraysEqual } from "../helpers/arrays.js";
 
 export class ElementsDatabase {
   name = "";

@@ -1,4 +1,4 @@
-import basePack from "/scripts/data/basePack.json" assert { type: "json" };
+import basePack from "./data/basePack.json" assert { type: "json" };
 
 import { ElementsDatabase } from "/scripts/classes/elementsDatabase.class.js";
 
