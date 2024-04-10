@@ -1,4 +1,4 @@
-import { renderModal } from "./render.js";
+import { renderModal } from "/scripts/render.js";
 
 renderModal();
 

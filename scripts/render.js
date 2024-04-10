@@ -1,4 +1,4 @@
-import { db } from "./storage.js";
+import { db } from "/scripts/storage.js";
 
 export function renderModal() {
   function changeModalState() {
