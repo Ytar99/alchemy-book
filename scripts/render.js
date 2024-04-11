@@ -48,7 +48,7 @@ export function renderModal() {
   const select1 = document.createElement("div");
   select1.style.border = "1px solid gray";
   select1.style.width = "100%";
-  select1.style.height = "48px";
+  select1.style.height = "32px";
   select1.style.cursor = "pointer";
   select1.title = "Кликни для очистки";
   select1.addEventListener("click", handleClearSelect);
@@ -56,15 +56,15 @@ export function renderModal() {
   const select2 = document.createElement("div");
   select2.style.border = "1px solid gray";
   select2.style.width = "100%";
-  select2.style.height = "48px";
+  select2.style.height = "32px";
   select2.style.cursor = "pointer";
   select2.title = "Кликни для очистки";
   select2.addEventListener("click", handleClearSelect);
 
   const resultButton = document.createElement("div");
   resultButton.style.border = "1px solid gray";
-  resultButton.style.width = "48px";
-  resultButton.style.height = "48px";
+  resultButton.style.width = "32px";
+  resultButton.style.height = "32px";
   resultButton.style.display = "flex";
   resultButton.style.textAlign = "center";
   resultButton.style.justifyContent = "center";
@@ -79,7 +79,7 @@ export function renderModal() {
   const resultBox = document.createElement("div");
   resultBox.style.border = "1px solid gray";
   resultBox.style.width = "100%";
-  resultBox.style.height = "48px";
+  resultBox.style.height = "32px";
 
   function handleAddToSelect(e) {
     const text = e.target.textContent;
@@ -152,7 +152,8 @@ export function renderModal() {
     const list = document.createElement("ul");
     list.id = "js-modal-list";
     list.style.border = "1px solid black";
-    list.style.maxHeight = "500px";
+    list.style.minHeight = "100px";
+    list.style.maxHeight = "32dvh";
     list.style.overflowY = "auto";
 
     const title = document.createElement("h2");
@@ -196,6 +197,10 @@ export function renderModal() {
   box.appendChild(reactionBox);
 
   renderList();
+
+  // for (let i = 1; i < 560; i++) {
+  //   db.addOpenedElement(i);
+  // }
 
   document.body.appendChild(modal);
 }

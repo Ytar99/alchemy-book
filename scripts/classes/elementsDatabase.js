@@ -30,9 +30,13 @@ export class ElementsDatabase {
 
   addOpenedElement(elementId) {
     if (!this.openedElements.includes(elementId)) {
-      this.openedElements.push(elementId);
-      this.sortOpenedElements();
-      this.saveData();
+      const elem = this.getElementById(elementId);
+
+      if (elem) {
+        this.openedElements.push(elementId);
+        this.sortOpenedElements();
+        this.saveData();
+      }
     }
   }
 
