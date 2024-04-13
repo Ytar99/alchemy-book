@@ -21,7 +21,7 @@ export class ElementsDatabase {
   set openedElements(elements) {
     if (Array.isArray(elements)) {
       this.openedElements = elements;
-      sortOpenedElements();
+      this.sortOpenedElements();
       this.saveData();
     } else {
       console.error(elements, " is not array");
@@ -105,6 +105,7 @@ export class ElementsDatabase {
   openAllElements() {
     localStorage.removeItem(this.saveName);
     this.openedElements = this.elementsList.map((elem) => elem.id);
+    this.saveData();
   }
 
   checkReaction(elementsArray) {
@@ -140,6 +141,7 @@ export class ElementsDatabase {
     if (!savedData || savedData.length === 0) {
       const baseElements = this.getAllBasicElements().map((item) => item.id);
       this.openedElements = baseElements;
+      this.saveData();
     } else {
       this.openedElements = savedData;
     }
