@@ -1,4 +1,4 @@
-import { isArraysEqual } from "../helpers/arrays.js";
+import { containsAllElements, getRandomFromArray, isArraysEqual } from "../helpers/arrays.js";
 
 export class ElementsDatabase {
   name = "";
@@ -48,12 +48,63 @@ export class ElementsDatabase {
     return this.elementsList.find((item) => item.id === id) || null;
   }
 
+  getRandomOpenedElement() {
+    const randomElementId = getRandomFromArray(this.openedElements);
+    const randomElement = this.getElementById(randomElementId);
+
+    return randomElement || null;
+  }
+
   getAllBasicElements() {
     return (
       this.elementsList.filter((elem) => {
         return elem?.isBase;
       }) || []
     );
+  }
+
+  getListOfOpenedElements() {
+    const list = [];
+
+    this.openedElements.forEach((id) => {
+      const elem = this.getElementById(id);
+
+      if (elem) {
+        list.push(elem);
+      }
+    });
+
+    return list;
+  }
+
+  getPossibleElements() {
+    const listOfOpenedElements = this.getListOfOpenedElements();
+    const elementsList = this.elementsList;
+
+    const classes = listOfOpenedElements.map((elem) => elem.class);
+    const possibleElements = [];
+
+    elementsList.forEach((elem) => {
+      const successReaction = elem?.recept?.find((recept) => containsAllElements(classes, recept));
+
+      if (successReaction) {
+        if (!this.openedElements.includes(elem.id)) {
+          possibleElements.push(elem);
+        }
+      }
+    });
+
+    return possibleElements;
+  }
+
+  resetProgress() {
+    localStorage.removeItem(this.saveName);
+    this.restoreSavedData();
+  }
+
+  openAllElements() {
+    localStorage.removeItem(this.saveName);
+    this.openedElements = this.elementsList.map((elem) => elem.id);
   }
 
   checkReaction(elementsArray) {
