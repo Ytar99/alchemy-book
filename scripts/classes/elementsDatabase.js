@@ -190,6 +190,7 @@ export class ElementsDatabase {
 
   restoreSavedData() {
     const savedData = JSON.parse(localStorage.getItem(this.saveName)) || [];
+    this.currentCategory = "";
 
     if (!savedData || savedData.length === 0) {
       const baseElements = this.getAllBasicElements().map((item) => item.id);
