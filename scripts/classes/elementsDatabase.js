@@ -5,10 +5,14 @@ export class ElementsDatabase {
   saveName = "";
   openedElements = [];
   elementsList = [];
+  categories = [];
+  currentCategory = "";
 
-  constructor(name, elementsList) {
-    this.elementsList = elementsList;
+  constructor(pack) {
+    const { name, elements, categories } = pack;
+    this.elementsList = elements;
     this.name = name;
+    this.categories = categories;
     this.saveName = `dataAL:${name}:opened`;
 
     this.restoreSavedData();
@@ -26,6 +30,33 @@ export class ElementsDatabase {
     } else {
       console.error(elements, " is not array");
     }
+  }
+
+  getOpenedElements(category = "") {
+    const ids = this.openedElements;
+    const elements = ids.reduce((acc, item) => {
+      const element = this.getElementById(item);
+      if (category) {
+        if (element?.category?.includes(category)) {
+          return [...acc, element];
+        }
+
+        return acc;
+      } else {
+        return [...acc, element];
+      }
+    }, []);
+
+    return elements;
+  }
+
+  getOpenedCategories() {
+    const elements = this.getOpenedElements();
+    const openedCategories = this.extractAllCategories(elements);
+
+    const resultCategories = openedCategories.map((category) => this.categories.find((item) => item.code === category));
+
+    return resultCategories;
   }
 
   addOpenedElement(elementId) {
@@ -89,7 +120,13 @@ export class ElementsDatabase {
 
       if (successReaction) {
         if (!this.openedElements.includes(elem.id)) {
-          possibleElements.push(elem);
+          if (this.currentCategory) {
+            if (elem.category?.includes(this.currentCategory)) {
+              possibleElements.push(elem);
+            }
+          } else {
+            possibleElements.push(elem);
+          }
         }
       }
     });
@@ -106,6 +143,22 @@ export class ElementsDatabase {
     localStorage.removeItem(this.saveName);
     this.openedElements = this.elementsList.map((elem) => elem.id);
     this.saveData();
+  }
+
+  getCategoriesCodes() {
+    return this.categories.map((category) => category.code);
+  }
+
+  extractAllCategories(itemsList = null) {
+    const elementsList = itemsList || this.elementsList;
+    const categories = new Set(
+      elementsList
+        .filter((item) => item?.category)
+        .map((item) => item?.category)
+        .flat()
+    );
+
+    return Array.from(categories);
   }
 
   checkReaction(elementsArray) {
