@@ -1,5 +1,42 @@
 import { db } from "./storage.js";
 
+function createSortSelect() {
+  function handleChangeSorting(e) {
+    db.changeSorting(e.target.value);
+
+    const elementsBox = document.querySelector("#elements-box");
+    const list = createList();
+
+    elementsBox.appendChild(list);
+  }
+
+  const sortBox = document.createElement("div");
+  sortBox.style.marginBottom = "12px";
+
+  const sortLabel = document.createElement("label");
+  sortLabel.htmlFor = "sort-select";
+  sortLabel.textContent = "Сортировка:";
+
+  const sortSelect = document.createElement("select");
+  sortSelect.id = "sort-select";
+  sortSelect.name = "sort-select";
+  sortSelect.addEventListener("change", handleChangeSorting);
+
+  Object.keys(db.sortings).forEach((item) => {
+    const optionItem = document.createElement("option");
+    optionItem.value = db.sortings[item].code;
+    optionItem.text = db.sortings[item].text;
+    sortSelect.appendChild(optionItem);
+  });
+  sortSelect.value = db.currentSort;
+
+  sortLabel.textContent = "Сортировка: ";
+  sortBox.appendChild(sortLabel);
+  sortBox.appendChild(sortSelect);
+
+  return sortBox;
+}
+
 export function createSelect(id) {
   function handleClearSelect(e) {
     e.target.innerHTML = "";
@@ -97,7 +134,7 @@ function createList() {
 
   const list = document.createElement("div");
   list.id = "js-modal-list";
-  list.style.flex = "7";
+  list.style.flex = "8";
   list.style.backgroundColor = "white";
   list.style.border = "1px solid black";
   list.style.height = "100%";
@@ -127,6 +164,7 @@ function createList() {
   elements.forEach((element) => {
     const listItem = document.createElement("div");
     listItem.style.cursor = "pointer";
+    listItem.style.padding = "0 4px";
     listItem.innerHTML = element.text;
     listItem.title = element.description;
     listItem.classList.add(element.class);
@@ -142,6 +180,7 @@ function createList() {
   possibleElements.forEach((item) => {
     const listItem = document.createElement("div");
     listItem.style.cursor = "pointer";
+    listItem.style.padding = "0 4px";
     listItem.innerHTML = "???";
     listItem.title = item.description;
 
@@ -153,14 +192,16 @@ function createList() {
 
   const categoriesListBox = document.createElement("div");
   categoriesListBox.id = "categories-list-box";
-  categoriesListBox.style.flex = "5";
+  categoriesListBox.style.flex = "4";
   categoriesListBox.style.backgroundColor = "lightgray";
   categoriesListBox.style.height = "100%";
+
   // categoriesListBox.style.transform = "translateX(-1px)";
 
   const categories = db.getOpenedCategories();
   const allItem = document.createElement("div");
   allItem.style.cursor = "pointer";
+  allItem.style.padding = "0 4px";
   allItem.innerHTML = "Все";
   allItem.name = "";
   allItem.classList.add("category-item");
@@ -179,6 +220,7 @@ function createList() {
   categories.forEach((category) => {
     const listItem = document.createElement("div");
     listItem.style.cursor = "pointer";
+    listItem.style.padding = "0 4px";
     listItem.innerHTML = category.text;
     listItem.name = category.code;
     listItem.classList.add("category-item");
@@ -208,6 +250,10 @@ function createList() {
   elementsListBox.id = "elements-list-box";
 
   elementsListBox.appendChild(title);
+
+  const sortSelect = createSortSelect();
+  elementsListBox.appendChild(sortSelect);
+
   elementsListBox.appendChild(listsWrapper);
   listsWrapper.appendChild(list);
   listsWrapper.appendChild(categoriesListBox);
@@ -299,6 +345,7 @@ export function renderModal() {
   modal.style.maxHeight = "100dvh";
   modal.style.backgroundColor = "white";
   modal.style.border = "1px solid black";
+  modal.style.fontFamily = "'Consolas', sans-serif";
 
   const jsButton = document.createElement("div");
   jsButton.style.position = "relative";

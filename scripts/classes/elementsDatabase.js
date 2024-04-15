@@ -7,13 +7,39 @@ export class ElementsDatabase {
   elementsList = [];
   categories = [];
   currentCategory = "";
+  sortings = {
+    byAlphabet: {
+      code: "byAlphabet",
+      text: "Алфавит",
+      handler: function (a, b) {
+        if (a.text < b.text) return -1;
+        if (a.text > b.text) return 1;
+        return 0;
+      },
+    },
+    byOpening: {
+      code: "byOpening",
+      text: "Открытие",
+      handler: function () {
+        return 0;
+      },
+    },
+    byId: {
+      code: "byId",
+      text: "Стандарт",
+      handler: function (a, b) {
+        return a.id - b.id;
+      },
+    },
+  };
+  currentSort = this.sortings.byAlphabet.code;
 
   constructor(pack) {
     const { name, elements, categories } = pack;
     this.elementsList = elements;
     this.name = name;
     this.categories = categories;
-    this.saveName = `dataAL:${name}:opened`;
+    this.saveName = `dataAL:${name}`;
 
     this.restoreSavedData();
   }
@@ -25,11 +51,16 @@ export class ElementsDatabase {
   set openedElements(elements) {
     if (Array.isArray(elements)) {
       this.openedElements = elements;
-      this.sortOpenedElements();
+      // this.sortOpenedElements();
       this.saveData();
     } else {
       console.error(elements, " is not array");
     }
+  }
+
+  changeSorting(sorting) {
+    this.currentSort = this.sortings[sorting].code;
+    this.saveData();
   }
 
   getOpenedElements(category = "") {
@@ -47,7 +78,9 @@ export class ElementsDatabase {
       }
     }, []);
 
-    return elements;
+    const sortedElements = this.sortOpenedElements(elements);
+
+    return sortedElements;
   }
 
   getOpenedCategories() {
@@ -55,7 +88,7 @@ export class ElementsDatabase {
     const openedCategories = this.extractAllCategories(elements);
 
     const resultCategories = openedCategories.map((category) => this.categories.find((item) => item.code === category));
-
+    resultCategories.sort(this.sortings.byAlphabet.handler);
     return resultCategories;
   }
 
@@ -65,14 +98,22 @@ export class ElementsDatabase {
 
       if (elem) {
         this.openedElements.push(elementId);
-        this.sortOpenedElements();
+        // this.sortOpenedElements();
         this.saveData();
       }
     }
   }
 
-  sortOpenedElements() {
-    this.openedElements.sort((a, b) => a - b);
+  sortOpenedElements(elementsList = []) {
+    const elements = [...elementsList];
+
+    if (!elementsList.length) {
+      elements = [...this.openedElements];
+    }
+
+    elements.sort(this.sortings[this.currentSort].handler);
+
+    return elements;
   }
 
   getElementById(id) {
@@ -135,7 +176,7 @@ export class ElementsDatabase {
   }
 
   resetProgress() {
-    localStorage.removeItem(this.saveName);
+    localStorage.removeItem(this.saveName + ":opened");
     this.restoreSavedData();
   }
 
@@ -185,11 +226,15 @@ export class ElementsDatabase {
   }
 
   saveData() {
-    localStorage.setItem(this.saveName, JSON.stringify(this.openedElements));
+    localStorage.setItem(this.saveName + ":opened", JSON.stringify(this.openedElements));
+    localStorage.setItem(this.saveName + ":sorting", this.currentSort);
   }
 
   restoreSavedData() {
-    const savedData = JSON.parse(localStorage.getItem(this.saveName)) || [];
+    const savedData = JSON.parse(localStorage.getItem(this.saveName + ":opened")) || [];
+    const sorting = localStorage.getItem(this.saveName + ":sorting") || this.sortings.byOpening.code;
+    this.currentSort = sorting;
+
     this.currentCategory = "";
 
     if (!savedData || savedData.length === 0) {
