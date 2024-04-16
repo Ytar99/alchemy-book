@@ -7,13 +7,56 @@
     <title>Alchemy Book</title>
   </head>
   <body>
-    <h1>Alchemy Book</h1>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus similique amet eligendi! Nihil eaque excepturi
-      voluptatum, maxime praesentium velit odio minima aperiam alias sapiente quisquam aut, sit quod fugiat ipsam!
-    </p>
+    <div id="app-alchemy-book">
+      <div id="book">
+        <!-- Список категорий -->
+        <div id="categories">
+          <div id="categories__list">
+            <div class="categories__category-box">
+              <img class="categories__category-img" src="" />
+              <span>Все</span>
+            </div>
+          </div>
 
-    <button id="btn">Click Me, Senpai</button>
+          <!-- Динамический список элементов категории -->
+          <div id="categories__elements-list-wrapper">
+            <div id="categories__elements-list__title">Начальные</div>
+            <div id="categories__elements-list">
+              <div class="categories__elements-list__element">Огонь</div>
+              <div class="categories__elements-list__element">Кот</div>
+              <div class="categories__elements-list__element">Хорек</div>
+              <div class="categories__elements-list__element">Зоопарк</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Рабочая панель -->
+        <div id="worktable">
+          <!-- Название и кнопка подсказка -->
+          <div id="worktable__header">
+            <div id="worktable__title">Рабочая среда</div>
+            <button id="btn-hint">Подсказка</button>
+          </div>
+
+          <!-- Панель элементов для реакции -->
+          <div id="worktable__reaction-box">
+            <div class="worktable__reaction-box__select">section_1</div>
+            <div class="worktable__reaction-box__select">section_2</div>
+            <div class="worktable__reaction-box__select">section_3</div>
+            <div class="worktable__reaction-box__select">section_4</div>
+            <div class="worktable__reaction-box__select">section_5</div>
+
+            <div id="worktable__reaction-result"></div>
+          </div>
+
+          <!-- Кнопки действий -->
+          <div id="worktable__footer">
+            <button id="btn-clear">Очистить</button>
+            <button id="btn-random">Случайно</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
 
