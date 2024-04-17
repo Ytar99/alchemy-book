@@ -1,6 +1,7 @@
-import { renderModal } from "./render.js";
+import { renderModal, renderSoundButton } from "./render.js";
 
 renderModal();
+renderSoundButton();
 
 // --------------
 const btn = document.querySelector("#btn");
