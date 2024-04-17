@@ -441,6 +441,7 @@ export function renderSoundButton() {
 
   const audioElement = new Audio("assets/sounds/bg_music.ogg");
   audioElement.volume = soundVolume.value / 100;
+  audioElement.loop = true;
 
   const soundBox = document.createElement("div");
   soundBox.style.boxSizing = "border-box";
