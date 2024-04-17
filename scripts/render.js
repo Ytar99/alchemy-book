@@ -431,7 +431,10 @@ export function renderSoundButton() {
   }
 
   const soundVolume = document.createElement("input");
-  soundVolume.style.display = "none";
+  soundVolume.style.width = "0";
+  soundVolume.style.opacity = "0";
+  soundVolume.style.cursor = "pointer";
+  soundVolume.style.transition = "all 0.2s linear";
   soundVolume.type = "range";
   soundVolume.value = 20;
   soundVolume.addEventListener("change", changeVolume);
@@ -446,7 +449,6 @@ export function renderSoundButton() {
   soundBox.style.left = "4px";
   soundBox.style.display = "flex";
   soundBox.style.flexDirection = "row";
-  soundBox.style.gap = "8px";
   soundBox.style.justifyContent = "center";
   soundBox.style.alignItems = "center";
   // soundBox.style.width = "48px";
@@ -456,11 +458,23 @@ export function renderSoundButton() {
   soundBox.style.fontSize = "32px";
   soundBox.style.padding = "8px";
 
-  function handleAudioControlsIn() {
-    soundVolume.style.display = "block";
+  function startTimer() {
+    return setTimeout(() => {
+      soundVolume.style.width = "0";
+      soundVolume.style.opacity = "0";
+    }, 750);
   }
+
+  let timerId = null;
+
+  function handleAudioControlsIn() {
+    soundVolume.style.width = "120px";
+    soundVolume.style.opacity = "100%";
+    clearTimeout(timerId);
+  }
+
   function handleAudioControlsOut() {
-    soundVolume.style.display = "none";
+    timerId = startTimer();
   }
 
   soundBox.addEventListener("mouseenter", handleAudioControlsIn);
@@ -469,6 +483,7 @@ export function renderSoundButton() {
   const soundButton = document.createElement("div");
   soundButton.textContent = "🔇";
   soundButton.style.transform = "translateY(-4px)";
+  soundButton.style.cursor = "pointer";
 
   function handleAudioState(e) {
     if (e.target.textContent === "🔊") {
