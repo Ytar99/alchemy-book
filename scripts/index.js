@@ -1,4 +1,6 @@
 import { renderModal, renderSoundButton } from "./render.js";
 
-renderModal();
-renderSoundButton();
+document.addEventListener("DOMContentLoaded", () => {
+  renderModal();
+  renderSoundButton();
+});
