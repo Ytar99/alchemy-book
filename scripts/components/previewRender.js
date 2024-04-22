@@ -1,4 +1,4 @@
-import { db } from "/scripts/storage.js";
+import { db } from "../storage.js";
 
 function createSortSelect() {
   function handleChangeSorting(e) {

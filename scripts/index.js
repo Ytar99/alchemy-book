@@ -1,6 +1,6 @@
-import { renderUI } from "/scripts/components/userInterfaceRender.js";
-import { renderModal } from "/scripts/components/previewRender.js";
-import { renderSoundButton } from "/scripts/components/soundRender.js";
+import { renderUI } from "./components/userInterfaceRender.js";
+import { renderModal } from "./components/previewRender.js";
+import { renderSoundButton } from "./components/soundRender.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderSoundButton();
