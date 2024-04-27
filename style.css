@@ -40,12 +40,6 @@ body {
   background-color: rgb(47, 47, 124);
 }
 
-#worktable {
-  flex: 6;
-
-  height: 100%;
-}
-
 #categories__list {
   flex: 3;
   display: flex;
@@ -113,12 +107,152 @@ body {
   display: none;
 }
 
-@media (max-width: 450px) {
-  body {
-    height: auto;
+#worktable {
+  display: flex;
+  flex-direction: column;
+  flex: 6;
+
+  height: 100%;
+  width: 100%;
+  padding: 3px 16px;
+}
+
+#worktable__header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: 100px;
+  min-height: 100px;
+  width: 100%;
+
+  align-items: end;
+}
+
+#worktable__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 50px;
+  width: 100%;
+}
+
+#btn-hint-header {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 0 3px;
+}
+
+#btn-hint-footer {
+  display: none;
+}
+
+#worktable__reaction-box {
+  flex: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.worktable__reaction-box__select {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: beige;
+
+  position: absolute;
+
+  transform: rotate(calc(270deg + var(--i) * (360deg / var(--selects)))) translate(150%)
+    rotate(calc(-270deg - var(--i) * (360deg / var(--selects))));
+}
+
+#worktable__reaction-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  transform: rotate(45deg);
+
+  font-size: 0.7em;
+  text-align: center;
+  background: rgb(160, 112, 185);
+}
+
+#worktable__footer {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.btn-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: max-content;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  padding: 0 3px;
+}
+
+@media (max-width: 768px) {
+  #app-alchemy-book {
+    width: 90%;
+    height: 90%;
+  }
+  #book {
+    flex-direction: column;
   }
 
+  #categories {
+    flex: 6;
+    min-height: 50%;
+    max-height: 50%;
+  }
+
+  #worktable {
+    flex: 6;
+    min-height: 50%;
+    max-height: 50%;
+  }
+
+  .worktable__reaction-box__select {
+    width: 48px;
+    height: 48px;
+
+    transform: rotate(calc(270deg + var(--i) * (360deg / var(--selects)))) translate(150%)
+      rotate(calc(-270deg - var(--i) * (360deg / var(--selects))));
+  }
+  #worktable__title {
+    display: none;
+  }
+
+  #worktable__header {
+    display: none;
+  }
+
+  #btn-hint-footer {
+    display: flex;
+  }
+
+  #btn-hint-header {
+    display: none;
+  }
+}
+
+/* @media (max-width: 450px) {
+  body {
+    height: auto;
+  } */
+/* 
   #book {
     flex-direction: column-reverse;
   }
-}
+} */
