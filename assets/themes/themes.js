@@ -38,6 +38,5 @@ export function initTheme(e) {
 
   localStorage.setItem("color-theme", themeName);
 
-  document.body.style.backgroundColor = theme.colors.background;
-  document.body.style.background = `url(${theme.backgroundImgPath}) no-repeat center center`;
+  document.body.style.background = `url(${theme.backgroundImgPath}) ${theme.colors.background} no-repeat center center`;
 }
