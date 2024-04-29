@@ -2,7 +2,7 @@ export const themes = {
   standard: {
     name: "Классическая",
     path: "/assets/themes/standard/",
-    backgroundImgPath: "/assets/themes/standard/bg.png",
+    backgroundImgPath: "assets/themes/standard/bg.png",
     colors: {
       black: "#000000",
       white: "#ffffff",
@@ -16,7 +16,7 @@ export const themes = {
   dark: {
     name: "Тёмная",
     path: "/assets/themes/dark/",
-    backgroundImgPath: "/assets/themes/dark/bg.png",
+    backgroundImgPath: "assets/themes/dark/bg.png",
     colors: {
       black: "#000000",
       white: "#ffffff",
