@@ -1,4 +1,4 @@
-import { themes, initTheme } from "../../../assetes/themes/themes.js";
+import { themes, initTheme } from "../../../assets/themes/themes.js";
 import { ModalOverlay } from "./overlay.js";
 
 function createThemeSelector() {
