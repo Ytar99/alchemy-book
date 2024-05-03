@@ -60,6 +60,13 @@ function renderElementsList() {
     listItem.classList.add("categories__elements-list__element");
     listItem.classList.add(element.class);
 
+    const listItemImg = document.createElement("img");
+    listItemImg.classList.add("categories__elements-list__element-icon");
+    listItemImg.src = `/scripts/data/basePackIcons/${element.class}.webp`;
+    listItemImg.alt = element.text;
+    listItemImg.draggable = false;
+    listItem.appendChild(listItemImg);
+
     const listItemText = document.createElement("span");
     listItemText.classList.add("categories__elements-list__element-text");
     listItemText.textContent = element.text.replaceAll("&nbsp;", " ");
@@ -172,9 +179,11 @@ function handleAddToSelect(e) {
 
     const clone = e.currentTarget.cloneNode(true);
     clone.style.display = "none";
+    clone.classList.add("element-select-clone");
 
     const targetRect = e.currentTarget.getBoundingClientRect();
     const cloneForAnimation = e.currentTarget.cloneNode(true);
+    cloneForAnimation.classList.add("element-select-clone");
     cloneForAnimation.style.position = "absolute";
     cloneForAnimation.style.zIndex = "2";
     cloneForAnimation.style.top = `${targetRect.top}px`;
@@ -195,7 +204,7 @@ function handleAddToSelect(e) {
 
     setTimeout(() => {
       cloneForAnimation.remove();
-      clone.style.display = "flex";
+      clone.style.display = "grid";
       // emptySelect.appendChild(clone);
       // clone.style.top = emptySelect.offsetTop;
       // clone.style.left = emptySelect.offsetLeft;
