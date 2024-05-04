@@ -4,6 +4,7 @@ import { renderFunctionalRow } from "./components/functionalRow.js";
 import { initTheme } from "../assets/themes/themes.js";
 // import { renderSoundButton } from "./components/soundRender.js";
 import { renderColorPalette } from "./components/colorPalette.js";
+import { bindDisintegration } from "./helpers/disintegration.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // renderSoundButton();
@@ -11,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderModal();
   renderUI();
   initTheme();
+
+  bindDisintegration();
 
   const color1 = "#508141";
   const color2 = "#c779fc";

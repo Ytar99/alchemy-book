@@ -1,4 +1,7 @@
+import { disintegrateElement } from "../helpers/disintegration.js";
 import { db } from "../storage.js";
+
+let animationsInProcess = 0;
 
 function renderCategoriesList() {
   function handleSelectCategory(e) {
@@ -165,25 +168,48 @@ function getSelectsArray() {
   return Array.from(document.querySelectorAll(".worktable__reaction-box__select"));
 }
 
-function handleAddToSelect(e) {
-  const text = e.currentTarget.textContent;
-  const name = e.currentTarget.classList[0];
+function handleClearSelect(e) {
+  const select = e.currentTarget;
+  const element = select.querySelector(".element-select-clone");
 
+  if (element) {
+    if (element.style.visibility !== "hidden") {
+      disintegrateElement(select.firstElementChild);
+    }
+  }
+}
+
+function handleClearAllSelects() {
+  const selects = getSelectsArray();
+  selects.forEach((select) => {
+    handleClearSelect({ currentTarget: select });
+  });
+}
+
+function handleAddToSelect(e) {
   const selects = getSelectsArray();
 
-  const emptySelect = selects.find((item) => item.innerHTML === "");
+  const emptySelect = selects.find((item) => {
+    const element = item.querySelector(".element-select-clone");
+    return !element;
+  });
 
   if (emptySelect) {
+    animationsInProcess += 1;
+
+    const btnClear = document.querySelector("#btn-clear");
+    btnClear.disabled = true;
+
     const resultBox = document.querySelector("#worktable__reaction-result");
     // const list = document.querySelector("#categories__elements-list");
 
     const clone = e.currentTarget.cloneNode(true);
-    clone.style.display = "none";
+    clone.style.visibility = "hidden";
     clone.classList.add("element-select-clone");
 
     const targetRect = e.currentTarget.getBoundingClientRect();
     const cloneForAnimation = e.currentTarget.cloneNode(true);
-    cloneForAnimation.classList.add("element-select-clone");
+    cloneForAnimation.classList.add("element-animation-clone");
     cloneForAnimation.style.position = "absolute";
     cloneForAnimation.style.zIndex = "2";
     cloneForAnimation.style.top = `${targetRect.top}px`;
@@ -204,7 +230,12 @@ function handleAddToSelect(e) {
 
     setTimeout(() => {
       cloneForAnimation.remove();
-      clone.style.display = "grid";
+      clone.style.visibility = "visible";
+      animationsInProcess -= 1;
+
+      if (animationsInProcess === 0) {
+        btnClear.disabled = false;
+      }
       // emptySelect.appendChild(clone);
       // clone.style.top = emptySelect.offsetTop;
       // clone.style.left = emptySelect.offsetLeft;
@@ -217,7 +248,17 @@ function handleAddToSelect(e) {
   }
 }
 
+function initApp() {
+  const selects = getSelectsArray();
+  selects.forEach((select) => {
+    select.addEventListener("click", handleClearSelect);
+  });
+  const clearButton = document.querySelector("#btn-clear");
+  clearButton.addEventListener("click", handleClearAllSelects);
+}
+
 export function renderUI() {
+  initApp();
   renderCategoriesList();
   renderElementsList();
 

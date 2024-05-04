@@ -17,6 +17,10 @@ body {
   width: 100dvw;
   height: 100dvh;
   position: relative;
+  overflow: hidden;
+}
+button {
+  user-select: none;
 }
 #app-alchemy-book {
   width: 75%;
@@ -108,8 +112,9 @@ body {
 }
 
 .categories__elements-list__element {
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 5px;
 }
 
@@ -127,6 +132,10 @@ body {
 }
 
 .categories__elements-list__element.element-select-clone > .categories__elements-list__element-text {
+  display: none;
+}
+
+.categories__elements-list__element.element-animation-clone > .categories__elements-list__element-text {
   display: none;
 }
 
