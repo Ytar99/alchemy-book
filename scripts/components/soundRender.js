@@ -1,4 +1,4 @@
-export function renderSoundButton() {
+export function createSoundButton() {
   function changeVolume(e) {
     audioElement.volume = e.target.value / 100;
   }
@@ -26,9 +26,9 @@ export function renderSoundButton() {
 
   const soundBox = document.createElement("div");
   soundBox.style.boxSizing = "border-box";
-  soundBox.style.position = "fixed";
-  soundBox.style.bottom = "4px";
-  soundBox.style.left = "4px";
+  // soundBox.style.position = "fixed";
+  // soundBox.style.bottom = "4px";
+  // soundBox.style.left = "4px";
   soundBox.style.display = "flex";
   soundBox.style.flexDirection = "row";
   soundBox.style.justifyContent = "center";
@@ -87,5 +87,15 @@ export function renderSoundButton() {
   soundBox.appendChild(audioElement);
   soundBox.appendChild(soundVolume);
 
-  document.body.appendChild(soundBox);
+  // document.body.appendChild(soundBox);
+  return soundBox;
+}
+
+export function renderSoundButton() {
+  const soundButton = createSoundButton();
+  soundButton.style.position = "fixed";
+  soundButton.style.bottom = "4px";
+  soundButton.style.left = "4px";
+
+  document.body.appendChild(soundButton);
 }

@@ -17,6 +17,10 @@ body {
   width: 100dvw;
   height: 100dvh;
   position: relative;
+  overflow: hidden;
+}
+button {
+  user-select: none;
 }
 #app-alchemy-book {
   width: 75%;
@@ -107,6 +111,40 @@ body {
   display: none;
 }
 
+.categories__elements-list__element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.categories__elements-list__element-icon {
+  width: 64px;
+  height: 64px;
+
+  user-drag: none;
+  -webkit-user-drag: none;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.categories__elements-list__element.element-select-clone > .categories__elements-list__element-text {
+  display: none;
+}
+
+.categories__elements-list__element.element-animation-clone > .categories__elements-list__element-text {
+  display: none;
+}
+
+.categories__elements-list__element-text {
+  font-size: 14px;
+  text-align: center;
+  color: white;
+}
+
 #worktable {
   display: flex;
   flex-direction: column;
@@ -157,12 +195,15 @@ body {
 }
 
 .worktable__reaction-box__select {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background-color: beige;
-
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgb(81, 2, 112);
 
   transform: rotate(calc(270deg + var(--i) * (360deg / var(--selects)))) translate(150%)
     rotate(calc(-270deg - var(--i) * (360deg / var(--selects))));
@@ -246,13 +287,3 @@ body {
     display: none;
   }
 }
-
-/* @media (max-width: 450px) {
-  body {
-    height: auto;
-  } */
-/* 
-  #book {
-    flex-direction: column-reverse;
-  }
-} */
