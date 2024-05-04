@@ -65,7 +65,7 @@ function renderElementsList() {
 
     const listItemImg = document.createElement("img");
     listItemImg.classList.add("categories__elements-list__element-icon");
-    listItemImg.src = `/scripts/data/basePackIcons/${element.class}.webp`;
+    listItemImg.src = `scripts/data/basePackIcons/${element.class}.webp`;
     listItemImg.alt = element.text;
     listItemImg.draggable = false;
     listItem.appendChild(listItemImg);
